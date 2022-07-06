@@ -37,7 +37,7 @@ describe("Order repository test", () => {
   });
 
   it("should create a new order", async () => {
-    const { order, ordemItem: orderItem } = await createBasicOrder();
+    const { order, orderItem } = await createBasicOrder();
 
     const orderRepository = new OrderRepository();
     await orderRepository.create(order);
@@ -65,7 +65,7 @@ describe("Order repository test", () => {
   });
 
   it("should update a order",async () => {
-    const { order, ordemItem } = await createBasicOrder();
+    const { order, orderItem } = await createBasicOrder();
 
     const orderRepository = new OrderRepository();
     await orderRepository.create(order);
@@ -96,10 +96,10 @@ describe("Order repository test", () => {
       total: order.total(),
       items: [
         {
-          id: ordemItem.id,
-          name: ordemItem.name,
-          price: ordemItem.price,
-          quantity: ordemItem.quantity,
+          id: orderItem.id,
+          name: orderItem.name,
+          price: orderItem.price,
+          quantity: orderItem.quantity,
           order_id: "123",
           product_id: "123",
         },
@@ -117,7 +117,7 @@ describe("Order repository test", () => {
   });
 
   it("should find a order", async () => {
-    const { order, ordemItem } = await createBasicOrder();
+    const { order, orderItem } = await createBasicOrder();
     const orderRepository = new OrderRepository();
     await orderRepository.create(order);
     const orderResult = await orderRepository.find(order.id);
@@ -135,7 +135,7 @@ describe("Order repository test", () => {
 
   it("should find all orders", async () => {
 
-    const { order, ordemItem } = await createBasicOrder();
+    const { order, orderItem } = await createBasicOrder();
     const orderRepository = new OrderRepository();
     await orderRepository.create(order);
 
@@ -172,7 +172,7 @@ async function createBasicOrder() {
   const product = new Product("123", "Product 1", 10);
   await productRepository.create(product);
 
-  const ordemItem = new OrderItem(
+  const orderItem = new OrderItem(
     "1",
     product.name,
     product.price,
@@ -180,7 +180,7 @@ async function createBasicOrder() {
     2
   );
 
-  const order = new Order("123", "123", [ordemItem]);
-  return { order, ordemItem };
+  const order = new Order("123", "123", [orderItem]);
+  return { order, orderItem };
 }
 
